@@ -5,25 +5,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct instructionReg
+typedef struct typeR
 {
-	char id;
-	int number;
-}
-instructionReg;
+	char opcode;
+	int rd;
+	int rs;
+	int rt;
+}typeR;
+
+typedef struct typeI
+{
+	char opcode;
+	int rs;
+	int rt;
+	char jumpLabel;
+}typeI;
+
+typedef struct typeJ
+{
+	char opcode;
+	char jumpLabel;
+};
 
 typedef struct instruction
 {
-	char opcode;
-	char id_Rd;
-	int num_Rd;
-	char id_Rs;
-	int num_Rs;
-	char id_Rt;
-	int id
-	instructionReg *rs;
-	instructionReg *rt;
-
+	char *label;
+	int type;
+	typeR *instructionR;
+	typeI *instructionI
+	typeJ *instructionJ;
 }
 instruction;
 
@@ -88,11 +98,13 @@ Registers inicializateRegisters()
 	return new;
 }
 
+
+
 //function to read the input file
-//inputs = name, list (by reference), width (by reference), length (by reference)
-void readFile(char *fileName, node **list, int *widthMatrix, int *lengthMatrix){
+//inputs = name
+void readFile(char *fileName){
 	//define variables
-	int nextLines = 0, aux1 = 0, aux2 = 0;
+	char *aux;
 	FILE *archive = NULL;
 
 	// open file
@@ -104,19 +116,10 @@ void readFile(char *fileName, node **list, int *widthMatrix, int *lengthMatrix){
     	exit(1);
   	}
 
-  	// read and save width and long of matrix
-  	fscanf(archive, "%d", widthMatrix);
-  	fscanf(archive, "%d", lengthMatrix);
+  	fscanf(archive, "%s", aux);
+  	if(aux != )
 
-  	// read and save the number of next lines
-  	fscanf(archive, "%d", &nextLines);
 
-  	// read and save the content of next lines
-  	for (int i = 0; i < nextLines; ++i){
-  		fscanf(archive, "%d", &aux1);
-  		fscanf(archive, "%d", &aux2);
-  		push(list, aux2, aux1);
-  	}
   	fclose(archive);
 }
 
@@ -125,14 +128,20 @@ void programExecution(){
 	
 
 	//Instruction Fetch
+	//saco la instruccion que apunta el puntero y la guardo en el stack
 
 	//Instruction Decode
+	//identifico que es lo que tengo que hacer y que registros o direcciones o immediates voy a usar
 
 	//Execution
+	//realizar la operacion
 
 	//Memory
+	//si es lw saco el dato de memoria
+	//si es sw guardo el dato en memoria
 
 	//Write Back
+	//escribo los registros
 
 
 
